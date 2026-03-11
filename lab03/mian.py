@@ -45,15 +45,11 @@ class ForestFireSimulator:
         self.update()
     
     def create_water_circle(self):
-        center_x = self.grid_width // 2
-        center_y = self.grid_height // 2
-        inner_radius = 10
-        outer_radius = 14
         
         for y in range(self.grid_height):
             for x in range(self.grid_width):
-                distance = math.sqrt((x - center_x) ** 2 + (y - center_y) ** 2)
-                if inner_radius <= distance <= outer_radius:
+                distance = math.sqrt((x - self.grid_height // 2) ** 2 + (y - self.grid_height // 2) ** 2)
+                if 10 <= distance <= 14:
                     self.current_grid[y][x] = self.WATER
                     self.tree_age[y][x] = 0
     
@@ -73,14 +69,6 @@ class ForestFireSimulator:
             for x in range(self.grid_width):
                 if self.current_grid[y][x] == self.TREE and self.tree_age[y][x] >= self.big_tree_age:
                     self.current_grid[y][x] = self.BIG_TREE
-        
-        fires_placed = 0
-        while fires_placed < 3:
-            y = random.randint(0, self.grid_height - 1)
-            x = random.randint(0, self.grid_width - 1)
-            if self.current_grid[y][x] != self.WATER:
-                self.current_grid[y][x] = self.FIRE
-                fires_placed += 1
         
         self.draw_grid()
     
