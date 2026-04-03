@@ -83,12 +83,18 @@ public:
         getStatistics();
         showStatisticsForMT();
     }
+
+    void print()
+    {
+        std::cout << x[size/2];
+    }
 };
 
 int main()
 {
     RandomGenerator testGenerator;
-    testGenerator.generateBoth();
+    testGenerator.generateMCG();
+    testGenerator.print();
 
     return 0;
 }
