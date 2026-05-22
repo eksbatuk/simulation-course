@@ -66,10 +66,15 @@ class ProbabilityApp:
 
     def run_experiment(self):
         try:
+            flag = True
+            for i in range(len(self.probs_vars)):
+                var = float(self.probs_vars[i].get())
+                if var < 0 or var > 1:
+                    flag = False
             P = [float(var.get()) for var in self.probs_vars]
             p5 = 1.0 - sum(P)
-            if p5 < -1e-6:
-                raise ValueError("Сумма вероятностей превышает 1")
+            if p5 < -1e-6 or flag == False:
+                raise ValueError("Некорректный ввод")
             P.append(max(0.0, p5))
             
             N = int(self.n_var.get())
@@ -95,7 +100,10 @@ class ProbabilityApp:
 
             th_var = sum((x**2) * p for x, p in zip(X, P)) - th_mean**2
             emp_var = sum((x**2) * p for x, p in zip(X, emp_P)) - emp_mean**2
-            err_var = abs(emp_var - th_var) / th_var * 100
+            if th_var == 0:
+                err_var = 0
+            else:
+                err_var = abs(emp_var - th_var) / th_var * 100
 
             chi_squared = 0.0
             for i in range(5):
