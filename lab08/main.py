@@ -67,7 +67,8 @@ class PoissonSimulationApp:
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.plot_frame)
         self.canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
-    def generate_poisson(self, mu, n):            
+    def generate_poisson(self, mu, n):
+            
         
         def inner(l_val):
             current_time = 0.0
